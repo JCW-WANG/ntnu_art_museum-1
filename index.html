@@ -6,11 +6,16 @@
   content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>展覽影片</title>
 
+<link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#000000" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
 <style>
   html, body {
     margin:0; padding:0; width:100%; height:100%; background:black;
     overflow:hidden;
-    touch-action: none; /* 禁止所有手勢 */
+    touch-action: none;
   }
   #start {
     width:100%; height:100%;
@@ -39,7 +44,6 @@
   const video = document.getElementById('video');
 
   function disableUserInput() {
-    // 阻止所有滑動、縮放、右鍵、長按等
     const events = ['touchstart','touchmove','touchend','gesturestart','gesturechange','gestureend','contextmenu','dblclick','selectstart'];
     events.forEach(evt => {
       document.addEventListener(evt, e => {
@@ -55,7 +59,6 @@
     video.muted = false;
     video.play().catch(e => console.error('播放失敗:', e));
 
-    // 進入全螢幕
     const elem = document.documentElement;
     if (elem.requestFullscreen) elem.requestFullscreen();
     else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
@@ -63,6 +66,10 @@
 
     disableUserInput();
   }, { once: true });
+
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js');
+  }
 </script>
 </body>
 </html>
