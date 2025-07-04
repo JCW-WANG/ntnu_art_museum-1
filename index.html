@@ -5,29 +5,35 @@
 <meta name="viewport"
   content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <title>展覽影片</title>
+
+<!-- PWA Manifest -->
 <link rel="manifest" href="manifest.json" />
+
 <meta name="theme-color" content="#000000" />
-<link rel="apple-touch-icon" href="icons/icon-512.png">
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
 <style>
   html, body {
     margin:0; padding:0; width:100%; height:100%; background:black;
     overflow:hidden;
-  }
-  video {
-    display:none;
-    width:100%; height:100%;
-    object-fit:cover;
   }
   #start {
     width:100%; height:100%;
     display:flex; justify-content:center; align-items:center;
     color:white; font-size:2em;
     user-select:none; -webkit-user-select:none;
+    text-align:center;
+  }
+  video {
+    display:none;
+    width:100%; height:100%;
+    object-fit:cover;
   }
 </style>
 </head>
 <body>
-<div id="start">點擊螢幕開始播放</div>
+<div id="start">📽 點擊螢幕開始播放影片</div>
 <video id="video" loop playsinline>
   <source src="https://www.dropbox.com/scl/fi/ph0lovo8yuelwfyu4rj2z/_.mp4?rlkey=kteaywovxlcz8may3n2c5ldfa&raw=1" type="video/mp4">
   您的瀏覽器不支援 HTML5 視頻。
@@ -40,14 +46,16 @@
     start.style.display='none';
     video.style.display='block';
     video.muted=false;
-    video.play();
+    video.play().catch(e=>console.error('播放失敗:', e));
+
     // 嘗試全螢幕
     const elem = document.documentElement;
     if (elem.requestFullscreen) elem.requestFullscreen();
     else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
-  });
+    else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
+  }, { once:true });
 
-  // 禁止手勢縮放、右鍵
+  // 禁止手勢縮放、滑動、右鍵等
   ['touchstart','touchmove','gesturestart','gesturechange','gestureend','contextmenu']
     .forEach(evt => document.addEventListener(evt, e => e.preventDefault(), { passive:false }));
 
