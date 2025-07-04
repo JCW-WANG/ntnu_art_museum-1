@@ -1,44 +1,56 @@
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
-<meta charset="UTF-8">
+<meta charset="UTF-8" />
 <meta name="viewport"
-  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>展示影片</title>
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<title>美術館 互動影片展示</title>
 <style>
   html, body {
-    margin:0; padding:0; height:100%; width:100%; background:#000;
-    overflow:hidden; user-select:none; -webkit-user-select:none;
+    margin: 0; padding: 0;
+    width: 100%; height: 100%;
+    background: black;
+    overflow: hidden;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-tap-highlight-color: transparent;
   }
   video {
-    width:100%; height:100%; object-fit:cover;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    background: black;
   }
 </style>
-</head>
-<body>
-<video id="myVideo" autoplay loop muted playsinline>
-  <source src="https://www.dropbox.com/scl/fi/io07kqottzmwcvrmz61cm/.mp4?rlkey=yzm2032usya1rfb6of67dgpx6&raw=1" type="video/mp4">
-  您的瀏覽器不支援 HTML5 視頻。
-</video>
 <script>
-  // 禁止任何觸控
+  // 禁止觸控與縮放手勢
   document.addEventListener('touchstart', e => e.preventDefault(), { passive: false });
   document.addEventListener('touchmove', e => e.preventDefault(), { passive: false });
   document.addEventListener('gesturestart', e => e.preventDefault());
   document.addEventListener('gesturechange', e => e.preventDefault());
   document.addEventListener('gestureend', e => e.preventDefault());
   document.addEventListener('contextmenu', e => e.preventDefault());
-  // 嘗試進入全螢幕
+
   window.addEventListener('load', () => {
-    const vid = document.getElementById('myVideo');
-    vid.play();
-    if (vid.requestFullscreen) { vid.requestFullscreen(); }
-    else if (vid.webkitRequestFullscreen) { vid.webkitRequestFullscreen(); }
-    else if (vid.msRequestFullscreen) { vid.msRequestFullscreen(); }
+    const video = document.querySelector('video');
+    video.play().catch(() => {
+      // 如果播放因未點擊失敗，提醒使用者點擊螢幕解鎖
+      alert('請點擊螢幕啟動影片播放');
+    });
+    // 嘗試進入全螢幕
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) elem.requestFullscreen();
+    else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+    else if (elem.msRequestFullscreen) elem.msRequestFullscreen();
   });
 </script>
+</head>
+<body>
+  <video autoplay loop playsinline muted>
+    <source src="https://github.com/JCW-WANG/ntnu_art_museum-1/raw/43b7b534df1b335c5aed182cb008951616e42b44/%E6%96%87%E7%89%A9%E4%BF%9D%E5%AD%98%E5%8B%95%E6%85%8B%E5%BD%B1%E7%89%87_%E6%B6%82%E5%BA%AD%E7%91%9C.mp4" type="video/mp4" />
+    您的瀏覽器不支援 HTML5 視頻。
+  </video>
 </body>
 </html>
-
