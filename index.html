@@ -13,17 +13,48 @@
     margin:0; padding:0; width:100%; height:100%; background:black;
     overflow:hidden;
   }
-  #start {
-    width:100%; height:100%;
-    display:flex; justify-content:center; align-items:center;
-    color:white; font-size:2em;
-    user-select:none; -webkit-user-select:none;
-    text-align:center;
-  }
   video {
     display:none;
     width:100%; height:100%;
     object-fit:cover;
   }
+  #start {
+    width:100%; height:100%;
+    display:flex; justify-content:center; align-items:center;
+    color:white; font-size:2em;
+    user-select:none; -webkit-user-select:none;
+  }
 </style>
-</h
+</head>
+<body>
+<div id="start">點擊螢幕開始播放</div>
+<video id="video" loop playsinline>
+  <source src="https://www.dropbox.com/scl/fi/ph0lovo8yuelwfyu4rj2z/_.mp4?rlkey=kteaywovxlcz8may3n2c5ldfa&raw=1" type="video/mp4">
+  您的瀏覽器不支援 HTML5 視頻。
+</video>
+<script>
+  const start = document.getElementById('start');
+  const video = document.getElementById('video');
+
+  start.addEventListener('click', () => {
+    start.style.display='none';
+    video.style.display='block';
+    video.muted=false;
+    video.play();
+    // 嘗試全螢幕
+    const elem = document.documentElement;
+    if (elem.requestFullscreen) elem.requestFullscreen();
+    else if (elem.webkitRequestFullscreen) elem.webkitRequestFullscreen();
+  });
+
+  // 禁止手勢縮放、右鍵
+  ['touchstart','touchmove','gesturestart','gesturechange','gestureend','contextmenu']
+    .forEach(evt => document.addEventListener(evt, e => e.preventDefault(), { passive:false }));
+
+  // 註冊 service worker
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js');
+  }
+</script>
+</body>
+</html>
