@@ -16,6 +16,7 @@
     margin:0; padding:0; width:100%; height:100%; background:black;
     overflow:hidden;
     touch-action: none;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
   }
   #start {
     width:100%; height:100%;
@@ -30,18 +31,39 @@
     width:100%; height:100%;
     object-fit:contain;
   }
+
+  /* --- 新增的 CSS 樣式 --- */
+  #credits {
+    display: none; /* 預設隱藏 */
+    position: absolute;
+    bottom: 20px;
+    width: 100%;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.9em;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    z-index: 999;
+    pointer-events: none; /* 讓點擊可以穿透 */
+  }
 </style>
 </head>
 <body>
+
 <div id="start">📽 點擊螢幕開始播放影片</div>
+
 <video id="video" loop playsinline>
   <source src="https://www.dropbox.com/scl/fi/ph0lovo8yuelwfyu4rj2z/_.mp4?rlkey=kteaywovxlcz8may3n2c5ldfa&raw=1" type="video/mp4">
   您的瀏覽器不支援 HTML5 視頻。
 </video>
 
+<div id="credits">
+  影片製作者 / 涂庭瑜
+</div>
+
 <script>
   const start = document.getElementById('start');
   const video = document.getElementById('video');
+  const credits = document.getElementById('credits'); // <-- 新增：取得文字元素
 
   function disableUserInput() {
     const events = ['touchstart','touchmove','touchend','gesturestart','gesturechange','gestureend','contextmenu','dblclick','selectstart'];
@@ -56,6 +78,8 @@
   start.addEventListener('click', () => {
     start.style.display = 'none';
     video.style.display = 'block';
+    credits.style.display = 'block'; // <-- 新增：顯示文字
+
     video.muted = false;
     video.play().catch(e => console.error('播放失敗:', e));
 
