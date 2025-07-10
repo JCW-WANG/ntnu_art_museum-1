@@ -34,17 +34,22 @@
 
   /* --- 新增的 CSS 樣式 --- */
   #credits {
-    display: none; /* 預設隱藏 */
-    position: absolute;
-    bottom: 20px;
-    width: 100%;
-    text-align: center;
-    color: rgba(255, 255, 255, 0.8);
-    font-size: 0.9em;
-    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
-    z-index: 999;
-    pointer-events: none; /* 讓點擊可以穿透 */
-  }
+  display: none;
+  position: absolute;
+  bottom: 20px;
+  width: 100%;
+  text-align: center;
+  color: white; /* 文字顏色設為純白 */
+  font-size: 0.9em;
+  z-index: 999;
+  pointer-events: none;
+  /* 透過多層次的 text-shadow 加上一圈 1px 的黑色外框 */
+  text-shadow:
+    -1px -1px 0 #000,
+     1px -1px 0 #000,
+    -1px  1px 0 #000,
+     1px  1px 0 #000;
+}
 </style>
 </head>
 <body>
@@ -57,7 +62,7 @@
 </video>
 
 <div id="credits">
-  影片製作者 / 涂庭瑜
+  影片製作者 | 涂庭瑜
 </div>
 
 <script>
