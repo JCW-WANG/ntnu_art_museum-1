@@ -33,22 +33,18 @@
   }
 
   /* --- 新增的 CSS 樣式 --- */
-  #credits {
+ #credits {
   display: none;
   position: absolute;
-  bottom: 20px;
+  bottom: 0; /* 讓背景條貼齊底部 */
   width: 100%;
+  padding: 8px 0; /* 給文字一點上下空間 */
+  background-color: rgba(0, 0, 0, 0.4); /* 半透明黑色背景 */
   text-align: center;
-  color: white; /* 文字顏色設為純白 */
+  color: white;
   font-size: 0.9em;
   z-index: 999;
   pointer-events: none;
-  /* 透過多層次的 text-shadow 加上一圈 1px 的黑色外框 */
-  text-shadow:
-    -1px -1px 0 #000,
-     1px -1px 0 #000,
-    -1px  1px 0 #000,
-     1px  1px 0 #000;
 }
 </style>
 </head>
