@@ -33,18 +33,27 @@
   }
 
   /* --- 新增的 CSS 樣式 --- */
- #credits {
+#credits {
   display: none;
   position: absolute;
-  bottom: 0; /* 讓背景條貼齊底部 */
+  bottom: 20px;
   width: 100%;
-  padding: 8px 0; /* 給文字一點上下空間 */
-  background-color: rgba(0, 0, 0, 0.4); /* 半透明黑色背景 */
   text-align: center;
   color: white;
   font-size: 0.9em;
   z-index: 999;
   pointer-events: none;
+  text-shadow:
+    -2px -2px 0 #000,
+     2px -2px 0 #000,
+    -2px  2px 0 #000,
+     2px  2px 0 #000,
+    -1px -2px 0 #000,
+    -2px -1px 0 #000,
+     1px -2px 0 #000,
+    -2px  1px 0 #000,
+     1px  2px 0 #000,
+     2px  1px 0 #000; /* 更全面的加粗效果 */
 }
 </style>
 </head>
